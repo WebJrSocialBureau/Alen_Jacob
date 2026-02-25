@@ -65,6 +65,73 @@ const Magnetic = ({ children, strength = 0.5 }) => {
   );
 };
 
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Ventures", href: "#ventures" },
+    { name: "Philosophy", href: "#philosophy" },
+    { name: "Impact", href: "#impact" },
+    { name: "Recognition", href: "#recognition" },
+    { name: "Inquiry", href: "#inquiry" },
+  ];
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed top-0 left-0 w-full z-[1000] border-b transition-all duration-500 ${
+        scrolled
+          ? "bg-white/80 backdrop-blur-md border-neutral-200 py-4"
+          : "bg-transparent border-transparent py-6"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+        <a
+          href="#hero"
+          className={`text-xl md:text-2xl font-black tracking-widest uppercase font-condensed transition-colors duration-500 ${
+            scrolled ? "text-black" : "text-white"
+          }`}
+        >
+          ALEN.JACOB
+        </a>
+        <div className="hidden md:flex gap-10">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-colors duration-500 ${
+                scrolled
+                  ? "text-black/60 hover:text-black"
+                  : "text-white/70 hover:text-white"
+              }`}
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+        <div className="md:hidden">
+          <span
+            className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-500 ${
+              scrolled ? "text-black" : "text-white"
+            }`}
+          >
+            Menu
+          </span>
+        </div>
+      </div>
+    </motion.nav>
+  );
+};
+
 const VENTURES = [
   {
     title: "Trillion Edition",
@@ -158,7 +225,10 @@ const ArrowUp = ({ size = 18, className = "" }) => (
 
 const RecognitionSection = () => {
   return (
-    <section className="py-12 md:py-32 px-[5%] bg-purple-50/30 border-t border-purple-100 overflow-hidden">
+    <section
+      id="recognition"
+      className="py-12 md:py-32 px-[5%] bg-purple-50/30 border-t border-purple-100 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto flex flex-col md:grid md:grid-cols-12 gap-12 md:gap-20">
         <div className="md:col-span-4">
           <RevealText className="text-[10px] font-bold uppercase tracking-[0.4em] text-purple-400 mb-8 block">
@@ -237,7 +307,10 @@ const BackToTop = () => {
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-neutral-100 flex flex-col">
+    <section
+      id="hero"
+      className="relative w-full h-screen overflow-hidden bg-neutral-100 flex flex-col"
+    >
       <div className="relative flex-grow flex items-center justify-center">
         <img
           src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=1920"
@@ -246,26 +319,34 @@ const Hero = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-transparent to-indigo-500/20"></div>
 
+        <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
+          <div className="w-[85vh] h-[85vh] border border-white/40 rounded-full"></div>
+        </div>
+
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-          <p className="text-white/80 text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] mb-6 animate-pulse">
+          <p className="text-white/80 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.8em] mb-12 animate-pulse">
             Defining Contemporary Bureaucracy
           </p>
           <motion.h1
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-white text-7xl md:text-[12vw] font-black tracking-tighter leading-[0.8] mix-blend-difference"
+            className="text-white flex flex-col items-center mix-blend-difference"
           >
-            ALEN <br />
-            <span className="italic font-serif">JACOB.</span>
+            <span className="text-8xl md:text-[14vw] font-black tracking-tighter leading-none mb-[-0.2em] relative z-20">
+              ALEN
+            </span>
+            <span className="text-8xl md:text-[16vw] italic font-serif leading-none relative z-10 block pr-[0.1em]">
+              JACOB.
+            </span>
           </motion.h1>
 
-          <div className="mt-16 flex flex-col md:flex-row gap-6 justify-center items-center">
-            <div className="w-px h-16 bg-white/30 hidden md:block"></div>
-            <p className="text-white/60 max-w-xs text-left text-sm font-medium leading-relaxed hidden md:block">
+          <div className="mt-24 max-w-md mx-auto relative group">
+            <p className="text-white/60 text-center text-xs md:text-sm font-medium leading-relaxed tracking-[0.1em] px-4">
               Alen Jacob specializes in bridging the gap between social
               structures, business systems, and tangible reality.
             </p>
+            <div className="w-px h-24 bg-gradient-to-b from-white/40 to-transparent mx-auto mt-12"></div>
           </div>
         </div>
       </div>
@@ -442,7 +523,10 @@ const GlobalImpactSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-32 px-[5%] bg-neutral-50 relative overflow-hidden">
+    <section
+      id="impact"
+      className="py-12 md:py-32 px-[5%] bg-neutral-50 relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20">
         <div className="lg:col-span-4">
           <RevealText className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 mb-8 block">
@@ -477,7 +561,10 @@ const GlobalImpactSection = () => {
 
 const VenturesSection = () => {
   return (
-    <section className="py-12 md:py-24 px-[5%] bg-white border-b border-neutral-100">
+    <section
+      id="ventures"
+      className="py-12 md:py-24 px-[5%] bg-white border-b border-neutral-100"
+    >
       <div className="max-w-7xl mx-auto">
         <RevealText className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 mb-8 block">
           01 Portfolio
@@ -529,7 +616,10 @@ const VenturesSection = () => {
 
 const PhilosophySection = () => {
   return (
-    <section className="py-12 md:py-24 px-[5%] bg-emerald-950 text-white relative flex flex-col items-center text-center overflow-hidden">
+    <section
+      id="philosophy"
+      className="py-12 md:py-24 px-[5%] bg-emerald-950 text-white relative flex flex-col items-center text-center overflow-hidden"
+    >
       <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_50%,#10b981_0%,transparent_70%)]"></div>
 
       <div className="max-w-4xl relative z-10 py-12 md:py-32">
@@ -569,6 +659,8 @@ const AlenJacob = () => {
         }
       `}</style>
 
+      <Navbar />
+
       <main>
         <Hero />
         <ScrollingSection />
@@ -578,7 +670,7 @@ const AlenJacob = () => {
         <RecognitionSection />
         <BackToTop />
 
-        <section className="bg-white py-16 md:py-32 px-6 md:px-12">
+        <section id="inquiry" className="bg-white py-16 md:py-32 px-6 md:px-12">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-end">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 mb-6 md:mb-8 block">
