@@ -1,15 +1,35 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   motion,
   useScroll,
   useTransform,
   useSpring,
   useMotionValue,
+  AnimatePresence,
 } from "framer-motion";
+
+// --- Bureau Logos ---
+import socialBureauLogo from "../assets/Socialbureau_logo.png";
+import businessBureauLogo from "../assets/Businessbureau_logo.png";
+const trillionEditionLogo =
+  "https://media.licdn.com/dms/image/v2/D4D0BAQGxkR7s2uQQyQ/company-logo_200_200/B4DZdUzxzFGYAM-/0/1749474549560/trillionedition_logo?e=2147483647&v=beta&t=nXoCXkbTq8UFjUNmpm4-LRjbZmhKfYVsyrg98a2LQH8";
+const realtyBureauLogo =
+  "https://res.cloudinary.com/dtwcgfmar/image/upload/v1770275984/RB_Logo_eqqi7q.png";
+
+// --- Bureau Imagery ---
+const TRILLION_IMAGE =
+  "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772277602/IMG_0534_0002_Color_Lookup_3_jiiuek.webp";
+const SOCIAL_IMAGE =
+  "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772275488/IMG_0543_0002_Color_Lookup_2_xqx3k7.webp";
+const BUSINESS_IMAGE =
+  "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772275472/WhatsApp_Image_2026-01-23_at_6.22.55_PM_1_-_Copy_vv7jfv.webp";
+const REALTY_IMAGE =
+  "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772274398/exterior1_i7obaw.webp";
 
 // --- Utility Components ---
 
-const RevealText = ({ children, className = "", delay = 0 }) => {
+export const RevealText = ({ children, className = "", delay = 0 }) => {
   return (
     <motion.div
       className={className}
@@ -27,13 +47,23 @@ const RevealText = ({ children, className = "", delay = 0 }) => {
   );
 };
 
-const Magnetic = ({ children, strength = 0.5 }) => {
+export const Magnetic = ({ children, strength = 0.5 }) => {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(pointer: coarse)").matches);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
+    if (!ref.current || isMobile) return;
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const centerX = left + width / 2;
@@ -65,8 +95,79 @@ const Magnetic = ({ children, strength = 0.5 }) => {
   );
 };
 
-const Navbar = () => {
+const MobileMenu = ({ isOpen, setIsOpen, navLinks }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ x: "100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "100%" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-1100 bg-black text-white flex flex-col p-6 md:p-12"
+        >
+          <div className="flex justify-between items-center mb-12 md:mb-24 gap-4">
+            <span className="text-lg md:text-xl font-black tracking-widest uppercase font-condensed shrink-0">
+              ALEN.JACOB
+            </span>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="group relative flex items-center gap-3 bg-white text-black pl-4 pr-2 py-2 md:px-6 md:py-3 rounded-full md:rounded-[20px] overflow-hidden transition-all hover:scale-105 shrink-0"
+            >
+              <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] relative z-10">
+                Close
+              </span>
+              <div className="relative w-8 h-8 z-10 flex items-center justify-center bg-black rounded-full transition-transform group-hover:rotate-90 duration-500">
+                <span className="absolute w-3 h-0.5 bg-white rotate-45" />
+                <span className="absolute w-3 h-0.5 bg-white -rotate-45" />
+              </div>
+              <motion.div
+                initial={{ y: "100%" }}
+                whileHover={{ y: 0 }}
+                className="absolute inset-0 bg-emerald-400 z-0"
+              />
+            </button>
+          </div>
+          <div className="flex flex-col gap-8">
+            {navLinks.map((link, i) => (
+              <motion.div
+                key={link.name}
+                initial={{ x: 20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 + i * 0.1 }}
+              >
+                <Link
+                  to={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-4xl sm:text-5xl md:text-7xl font-black font-condensed uppercase tracking-tighter hover:text-emerald-400 transition-colors block"
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-auto pt-12 border-t border-white/10 flex flex-col gap-4">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+              Social Bureau
+            </span>
+            <div className="flex gap-8">
+              <a href="#" className="text-sm hover:text-emerald-400">
+                LinkedIn
+              </a>
+              <a href="#" className="text-sm hover:text-emerald-400">
+                Instagram
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,58 +178,69 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Ventures", href: "#ventures" },
-    { name: "Philosophy", href: "#philosophy" },
-    { name: "Impact", href: "#impact" },
-    { name: "Recognition", href: "#recognition" },
-    { name: "Inquiry", href: "#inquiry" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 w-full z-[1000] border-b transition-all duration-500 ${
-        scrolled
-          ? "bg-white/80 backdrop-blur-md border-neutral-200 py-4"
-          : "bg-transparent border-transparent py-6"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-        <a
-          href="#hero"
-          className={`text-xl md:text-2xl font-black tracking-widest uppercase font-condensed transition-colors duration-500 ${
-            scrolled ? "text-black" : "text-white"
-          }`}
-        >
-          ALEN.JACOB
-        </a>
-        <div className="hidden md:flex gap-10">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-colors duration-500 ${
-                scrolled
-                  ? "text-black/60 hover:text-black"
-                  : "text-white/70 hover:text-white"
-              }`}
-            >
-              {link.name}
-            </a>
-          ))}
-        </div>
-        <div className="md:hidden">
-          <span
-            className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-500 ${
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className={`fixed top-0 left-0 w-full z-[1000] border-b transition-all duration-500 ${
+          scrolled
+            ? "bg-white/80 backdrop-blur-md border-neutral-200 py-4"
+            : "bg-transparent border-transparent py-6"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+          <Link
+            to="/"
+            className={`text-xl md:text-2xl font-black tracking-widest uppercase font-condensed transition-colors duration-500 ${
               scrolled ? "text-black" : "text-white"
             }`}
           >
-            Menu
-          </span>
+            ALEN.JACOB
+          </Link>
+          <div className="hidden md:flex gap-10">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-colors duration-500 ${
+                  scrolled
+                    ? "text-black/60 hover:text-black"
+                    : "text-white/70 hover:text-white"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="md:hidden group flex flex-col items-end gap-1.5 p-2"
+          >
+            <div
+              className={`h-0.5 transition-all duration-300 ${scrolled ? "bg-black" : "bg-white"} ${mobileMenuOpen ? "w-0" : "w-8"}`}
+            />
+            <div
+              className={`h-0.5 transition-all duration-300 ${scrolled ? "bg-black" : "bg-white"} ${mobileMenuOpen ? "w-0" : "w-6"}`}
+            />
+            <div
+              className={`h-0.5 transition-all duration-300 ${scrolled ? "bg-black" : "bg-white"} ${mobileMenuOpen ? "w-0" : "w-4"}`}
+            />
+          </button>
         </div>
-      </div>
-    </motion.nav>
+      </motion.nav>
+      <MobileMenu
+        isOpen={mobileMenuOpen}
+        setIsOpen={setMobileMenuOpen}
+        navLinks={navLinks}
+      />
+    </>
   );
 };
 
@@ -140,8 +252,8 @@ const VENTURES = [
     accent: "#10b981",
     description:
       "Architecting exclusive business frameworks for elite ventures.",
-    image:
-      "https://images.unsplash.com/photo-1507679799987-c7377f0c8488?auto=format&fit=crop&q=80&w=800",
+    image: trillionEditionLogo,
+    url: "https://www.trillionedition.com/",
   },
   {
     title: "Social Bureau",
@@ -150,8 +262,8 @@ const VENTURES = [
     accent: "#6366f1",
     description:
       "Kerala's first API-based advertising and social strategy agency.",
-    image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+    image: socialBureauLogo,
+    url: "https://www.socialbureau.in/",
   },
   {
     title: "Business Bureau",
@@ -160,17 +272,18 @@ const VENTURES = [
     accent: "#3b82f6",
     description:
       "Bridging architectural visions with corporate strategy and systems.",
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800",
+    image: businessBureauLogo,
+    url: "https://www.businessbureau.in/",
   },
   {
-    title: "VentureX",
-    category: "Equity & Growth",
-    color: "amber",
-    accent: "#f59e0b",
-    description: "Accelerating disruptive startups through strategic capital.",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800",
+    title: "Realty Bureau",
+    category: "Real Estate & Architecture",
+    color: "neutral",
+    accent: "#000000",
+    description:
+      "Directing architectural excellence and managed realty assets.",
+    image: realtyBureauLogo,
+    url: "https://www.realtybureau.in/",
   },
 ];
 
@@ -197,7 +310,7 @@ const RECOGNITION = [
   },
 ];
 
-const CornerBracket = ({ className = "" }) => (
+export const CornerBracket = ({ className = "" }) => (
   <div className={`absolute pointer-events-none ${className}`}>
     <div className="absolute -top-1 -left-1 w-4 h-4 border-t border-l border-black/40" />
     <div className="absolute -top-1 -right-1 w-4 h-4 border-t border-r border-black/40" />
@@ -206,7 +319,7 @@ const CornerBracket = ({ className = "" }) => (
   </div>
 );
 
-const ArrowUp = ({ size = 18, className = "" }) => (
+export const ArrowUp = ({ size = 18, className = "" }) => (
   <svg
     width={size}
     height={size}
@@ -223,11 +336,91 @@ const ArrowUp = ({ size = 18, className = "" }) => (
   </svg>
 );
 
+export const BackToTop = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0, y: 20 }}
+      animate={{
+        opacity: isVisible ? 1 : 0,
+        scale: isVisible ? 1 : 0,
+        y: isVisible ? 0 : 20,
+      }}
+      className="fixed bottom-6 right-6 md:bottom-12 md:right-12 z-50 pointer-events-none"
+    >
+      <div className="pointer-events-auto">
+        <Magnetic strength={0.3}>
+          <button
+            onClick={scrollToTop}
+            className="group relative w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-black/10 backdrop-blur-xl border border-white/20 text-black rounded-full shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 hover:bg-black hover:text-white"
+          >
+            {/* Progress Ring */}
+            <svg className="absolute inset-0 w-full h-full -rotate-90">
+              <circle
+                cx="50%"
+                cy="50%"
+                r="45%"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+                className="opacity-10"
+              />
+              <motion.circle
+                cx="50%"
+                cy="50%"
+                r="45%"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                style={{
+                  pathLength: scrollYProgress,
+                  pathSpacing: 0,
+                }}
+              />
+            </svg>
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ArrowUp
+                size={24}
+                className="relative z-10 group-hover:-translate-y-1 transition-transform duration-300"
+              />
+            </motion.div>
+          </button>
+        </Magnetic>
+      </div>
+    </motion.div>
+  );
+};
+
 const RecognitionSection = () => {
   return (
     <section
       id="recognition"
-      className="py-12 md:py-32 px-[5%] bg-purple-50/30 border-t border-purple-100 overflow-hidden"
+      className="py-12 md:py-24 px-[5%] bg-purple-50/30 border-t border-purple-100 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto flex flex-col md:grid md:grid-cols-12 gap-12 md:gap-20">
         <div className="md:col-span-4">
@@ -245,7 +438,7 @@ const RecognitionSection = () => {
             {RECOGNITION.map((r, i) => (
               <div
                 key={i}
-                className="group py-8 md:py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-all hover:bg-white hover:px-8"
+                className="group py-6 md:py-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 transition-all hover:bg-white hover:px-8"
               >
                 <div className="flex flex-col gap-2">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-purple-500">
@@ -264,42 +457,6 @@ const RecognitionSection = () => {
         </div>
       </div>
     </section>
-  );
-};
-
-const BackToTop = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 500);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  return (
-    <div
-      className={`fixed bottom-6 right-6 md:bottom-12 md:right-12 z-[1000] transition-all duration-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"}`}
-    >
-      <Magnetic strength={0.3}>
-        <button
-          onClick={scrollToTop}
-          className="w-12 h-12 md:w-14 md:h-14 bg-black border border-white/10 text-white flex items-center justify-center group relative overflow-hidden transition-colors hover:border-white/20"
-        >
-          <CornerBracket className="top-1 left-1 w-4 h-4 opacity-40 group-hover:opacity-100 transition-opacity" />
-          <ArrowUp
-            size={18}
-            className="relative z-10 transition-transform group-hover:-translate-y-1"
-          />
-          <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-        </button>
-      </Magnetic>
-    </div>
   );
 };
 
@@ -323,8 +480,8 @@ const Hero = () => {
           <div className="w-[85vh] h-[85vh] border border-white/40 rounded-full"></div>
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-          <p className="text-white/80 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.8em] mb-12 animate-pulse">
+        <div className="relative z-10 text-center px-6 max-w-7xl mx-auto">
+          <p className="text-white/80 text-[10px] font-bold uppercase tracking-[0.4em] md:tracking-[0.8em] mb-8 md:mb-12 animate-pulse">
             Defining Contemporary Bureaucracy
           </p>
           <motion.h1
@@ -333,20 +490,20 @@ const Hero = () => {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-white flex flex-col items-center mix-blend-difference"
           >
-            <span className="text-8xl md:text-[14vw] font-black tracking-tighter leading-none mb-[-0.2em] relative z-20">
+            <span className="text-7xl sm:text-8xl md:text-[14vw] font-black tracking-tighter leading-none mb-[-0.2em] relative z-20">
               ALEN
             </span>
-            <span className="text-8xl md:text-[16vw] italic font-serif leading-none relative z-10 block pr-[0.1em]">
+            <span className="text-7xl sm:text-8xl md:text-[16vw] italic font-serif leading-none relative z-10 block pr-[0.1em]">
               JACOB.
             </span>
           </motion.h1>
 
-          <div className="mt-24 max-w-md mx-auto relative group">
-            <p className="text-white/60 text-center text-xs md:text-sm font-medium leading-relaxed tracking-[0.1em] px-4">
+          <div className="mt-16 md:mt-24 max-w-md mx-auto relative group">
+            <p className="text-white/60 text-center text-xs md:text-sm font-medium leading-relaxed tracking-[0.05em] md:tracking-widest px-4">
               Alen Jacob specializes in bridging the gap between social
               structures, business systems, and tangible reality.
             </p>
-            <div className="w-px h-24 bg-gradient-to-b from-white/40 to-transparent mx-auto mt-12"></div>
+            <div className="w-px h-16 md:h-24 bg-gradient-to-b from-white/40 to-transparent mx-auto mt-12"></div>
           </div>
         </div>
       </div>
@@ -403,7 +560,7 @@ const ScrollRow = ({
               {item.text}
             </span>
             <div
-              className="w-[16vw] h-[16vw] md:w-[13vw] md:h-[13vw] shrink-0 overflow-hidden shadow-2xl border-[12px] border-white bg-neutral-200"
+              className="w-[16vw] h-[16vw] md:w-[13vw] md:h-[13vw] shrink-0 overflow-hidden shadow-2xl border-[12px] border-white bg-black"
               style={{
                 borderRadius: "0px",
                 transform: `rotate(${idx % 2 === 0 ? rotation : -rotation}deg)`,
@@ -444,26 +601,26 @@ const ScrollingSection = () => {
   const bureaus = [
     {
       text: "Trillion Edition",
-      img: "https://images.unsplash.com/photo-1507679799987-c7377f0c8488?auto=format&fit=crop&q=80&w=500",
+      img: TRILLION_IMAGE,
     },
     {
       text: "Social Bureau",
-      img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=500",
+      img: SOCIAL_IMAGE,
     },
     {
       text: "Business Bureau",
-      img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=500",
+      img: BUSINESS_IMAGE,
     },
     {
-      text: "VentureX",
-      img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=500",
+      text: "Realty Bureau",
+      img: REALTY_IMAGE,
     },
   ];
 
   return (
     <div
       ref={containerRef}
-      className="bg-white py-16 md:py-32 relative overflow-hidden border-y border-neutral-100"
+      className="bg-white py-12 md:py-20 relative overflow-hidden border-y border-neutral-100"
     >
       <div className="flex flex-col gap-0 md:gap-4">
         <ScrollRow
@@ -525,7 +682,7 @@ const GlobalImpactSection = () => {
   return (
     <section
       id="impact"
-      className="py-12 md:py-32 px-[5%] bg-neutral-50 relative overflow-hidden"
+      className="py-12 md:py-24 px-[5%] bg-neutral-50 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20">
         <div className="lg:col-span-4">
@@ -563,7 +720,7 @@ const VenturesSection = () => {
   return (
     <section
       id="ventures"
-      className="py-12 md:py-24 px-[5%] bg-white border-b border-neutral-100"
+      className="py-10 md:py-20 px-[5%] bg-white border-b border-neutral-100"
     >
       <div className="max-w-7xl mx-auto">
         <RevealText className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 mb-8 block">
@@ -578,7 +735,7 @@ const VenturesSection = () => {
           {VENTURES.map((v, i) => (
             <div
               key={i}
-              className={`group relative bg-white p-8 md:p-16 overflow-hidden transition-all duration-700 hover:bg-${v.color}-50`}
+              className={`group relative bg-white p-8 md:p-12 overflow-hidden transition-all duration-700 hover:bg-${v.color}-50`}
             >
               <div className="relative z-10">
                 <span
@@ -592,18 +749,21 @@ const VenturesSection = () => {
                 <p className="text-neutral-500 max-w-sm leading-relaxed mb-8">
                   {v.description}
                 </p>
-                <button
+                <a
+                  href={v.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`text-[10px] font-bold uppercase tracking-widest border-b-2 transition-all`}
                   style={{ borderColor: v.accent, color: v.accent }}
                 >
                   Explore Entity
-                </button>
+                </a>
               </div>
-              <div className="absolute right-0 bottom-0 w-1/2 h-1/2 md:w-2/3 md:h-2/3 translate-x-1/4 translate-y-1/4 opacity-0 group-hover:opacity-30 transition-all duration-1000 group-hover:translate-x-0 group-hover:translate-y-0">
+              <div className="absolute right-0 bottom-0 w-1/2 h-1/2 md:w-2/3 md:h-2/3 translate-x-1/4 translate-y-1/4 opacity-0 group-hover:opacity-100 transition-all duration-1000 group-hover:translate-x-0 group-hover:translate-y-0 flex items-center justify-center bg-black p-12 md:p-20 rounded-3xl shadow-2xl">
                 <img
                   src={v.image}
-                  alt=""
-                  className="w-full h-full object-cover shadow-2xl"
+                  alt={v.title}
+                  className="w-full h-full object-contain"
                 />
               </div>
             </div>
@@ -618,11 +778,11 @@ const PhilosophySection = () => {
   return (
     <section
       id="philosophy"
-      className="py-12 md:py-24 px-[5%] bg-emerald-950 text-white relative flex flex-col items-center text-center overflow-hidden"
+      className="py-12 md:py-20 px-[5%] bg-emerald-950 text-white relative flex flex-col items-center text-center overflow-hidden"
     >
       <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_50%,#10b981_0%,transparent_70%)]"></div>
 
-      <div className="max-w-4xl relative z-10 py-12 md:py-32">
+      <div className="max-w-4xl relative z-10 py-12 md:py-24">
         <RevealText className="text-[10px] font-bold uppercase tracking-[0.6em] text-emerald-400 mb-12 block">
           Executive Philosophy
         </RevealText>
@@ -670,7 +830,7 @@ const AlenJacob = () => {
         <RecognitionSection />
         <BackToTop />
 
-        <section id="inquiry" className="bg-white py-16 md:py-32 px-6 md:px-12">
+        <section id="inquiry" className="bg-white py-12 md:py-24 px-6 md:px-12">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-end">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 mb-6 md:mb-8 block">
@@ -695,61 +855,140 @@ const AlenJacob = () => {
         </section>
       </main>
 
-      <footer className="bg-black text-white py-12 md:py-24 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto flex flex-col gap-12 md:gap-20">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-12">
-            <div className="text-3xl md:text-6xl font-black tracking-widest uppercase font-condensed">
-              ALEN.JACOB
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
-              <div className="flex flex-col gap-4">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
-                  Navigation
-                </span>
-                <a href="#" className="text-sm hover:text-white/60">
-                  Philosophy
-                </a>
-                <a href="#" className="text-sm hover:text-white/60">
-                  Bureaus
-                </a>
-                <a href="#" className="text-sm hover:text-white/60">
-                  Journal
-                </a>
-              </div>
-              <div className="flex flex-col gap-4">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
-                  Connect
-                </span>
-                <a href="#" className="text-sm hover:text-white/60">
-                  Instagram
-                </a>
-                <a href="#" className="text-sm hover:text-white/60">
-                  LinkedIn
-                </a>
-                <a href="#" className="text-sm hover:text-white/60">
-                  X.com
-                </a>
-              </div>
-              <div className="flex flex-col gap-4">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
-                  Legal
-                </span>
-                <a href="#" className="text-sm hover:text-white/60">
-                  Privacy
-                </a>
-                <a href="#" className="text-sm hover:text-white/60">
-                  Terms
-                </a>
-              </div>
-            </div>
+      <Footer />
+    </div>
+  );
+};
+
+export const Footer = () => {
+  return (
+    <footer className="bg-black text-white py-10 md:py-16 px-6 md:px-12">
+      <div className="max-w-7xl mx-auto flex flex-col gap-12 md:gap-20">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-12">
+          <div className="text-3xl md:text-6xl font-black tracking-widest uppercase font-condensed">
+            ALEN.JACOB
           </div>
-          <div className="border-t border-white/10 pt-8 md:pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/20">
-            <span>© 2024 Alen Jacob. All rights reserved.</span>
-            <span>Designed for the Future.</span>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
+            <div className="flex flex-col gap-4">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                Navigation
+              </span>
+              <Link to="/about" className="text-sm hover:text-white/60">
+                About
+              </Link>
+              <Link to="/services" className="text-sm hover:text-white/60">
+                Services
+              </Link>
+              <Link to="/contact" className="text-sm hover:text-white/60">
+                Contact
+              </Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                Connect
+              </span>
+              <a href="#" className="text-sm hover:text-white/60">
+                Instagram
+              </a>
+              <a href="#" className="text-sm hover:text-white/60">
+                LinkedIn
+              </a>
+              <a href="#" className="text-sm hover:text-white/60">
+                X.com
+              </a>
+            </div>
+            <div className="flex flex-col gap-4">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                Network
+              </span>
+              <a
+                href="https://www.trillionedition.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group/link"
+              >
+                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
+                  <img
+                    src={trillionEditionLogo}
+                    alt="Trillion Edition"
+                    className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
+                  />
+                </div>
+                <span className="text-sm text-white/60 group-hover/link:text-white">
+                  Trillion Edition
+                </span>
+              </a>
+              <a
+                href="https://www.socialbureau.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group/link"
+              >
+                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
+                  <img
+                    src={socialBureauLogo}
+                    alt="Social Bureau"
+                    className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
+                  />
+                </div>
+                <span className="text-sm text-white/60 group-hover/link:text-white">
+                  Social Bureau
+                </span>
+              </a>
+              <a
+                href="https://www.businessbureau.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group/link"
+              >
+                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
+                  <img
+                    src={businessBureauLogo}
+                    alt="Business Bureau"
+                    className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
+                  />
+                </div>
+                <span className="text-sm text-white/60 group-hover/link:text-white">
+                  Business Bureau
+                </span>
+              </a>
+              <a
+                href="https://www.realtybureau.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group/link"
+              >
+                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
+                  <img
+                    src={realtyBureauLogo}
+                    alt="Realty Bureau"
+                    className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
+                  />
+                </div>
+                <span className="text-sm text-white/60 group-hover/link:text-white">
+                  Realty Bureau
+                </span>
+              </a>
+            </div>
+            <div className="flex flex-col gap-4">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
+                Legal
+              </span>
+              <a href="#" className="text-sm hover:text-white/60">
+                Privacy
+              </a>
+              <a href="#" className="text-sm hover:text-white/60">
+                Terms
+              </a>
+            </div>
           </div>
         </div>
-      </footer>
-    </div>
+        <div className="border-t border-white/10 pt-8 md:pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/20">
+          <span>© 2024 Alen Jacob. All rights reserved.</span>
+          <span>Designed for the Future.</span>
+        </div>
+      </div>
+    </footer>
   );
 };
 
