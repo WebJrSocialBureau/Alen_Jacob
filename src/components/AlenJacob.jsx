@@ -7,25 +7,35 @@ import {
   useSpring,
   useMotionValue,
   AnimatePresence,
-} from "framer-motion";
+} from "motion/react";
+import { ArrowUpRight } from "lucide-react";
+import TRILLION_IMAGE from "../assets/trillionedition.webp";
+import SOCIAL_IMAGE from "../assets/Socialbureau_logo.png";
+import BUSINESS_IMAGE from "../assets/Businessbureau_logo.png";
 
-// --- Bureau Logos ---
+// import REALTY_IMAGE from "../assets/realty_image.webp";
+
+// --- Bureau Logos (Inlined for high-fidelity vector rendering and zero physical file dependencies) ---
+import trillionEditionLogo from "../assets/trillionedition.webp";
 import socialBureauLogo from "../assets/Socialbureau_logo.png";
+
 import businessBureauLogo from "../assets/Businessbureau_logo.png";
-const trillionEditionLogo =
-  "https://media.licdn.com/dms/image/v2/D4D0BAQGxkR7s2uQQyQ/company-logo_200_200/B4DZdUzxzFGYAM-/0/1749474549560/trillionedition_logo?e=2147483647&v=beta&t=nXoCXkbTq8UFjUNmpm4-LRjbZmhKfYVsyrg98a2LQH8";
-const realtyBureauLogo =
-  "https://res.cloudinary.com/dtwcgfmar/image/upload/v1770275984/RB_Logo_eqqi7q.png";
+
+export const realtyBureauLogo = "https://pub-551ad76f06a94ab19c65c540e6bf9ac7.r2.dev/realtybureau.png";
+
+// export const trillionEditionLogo =
+//   "https://media.licdn.com/dms/image/v2/D4D0BAQGxkR7s2uQQyQ/company-logo_200_200/B4DZdUzxzFGYAM-/0/1749474549560/trillionedition_logo?e=2147483647&v=beta&t=nXoCXkbTq8UFjUNmpm4-LRjbZmhKfYVsyrg98a2LQH8";
+
 
 // --- Bureau Imagery ---
-const TRILLION_IMAGE =
-  "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772277602/IMG_0534_0002_Color_Lookup_3_jiiuek.webp";
-const SOCIAL_IMAGE =
-  "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772275488/IMG_0543_0002_Color_Lookup_2_xqx3k7.webp";
-const BUSINESS_IMAGE =
-  "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772275472/WhatsApp_Image_2026-01-23_at_6.22.55_PM_1_-_Copy_vv7jfv.webp";
-const REALTY_IMAGE =
-  "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772274398/exterior1_i7obaw.webp";
+// export const TRILLION_IMAGE =
+//   "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772277602/IMG_0534_0002_Color_Lookup_3_jiiuek.webp";
+// export const SOCIAL_IMAGE =
+//   "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772275488/IMG_0543_0002_Color_Lookup_2_xqx3k7.webp";
+// export const BUSINESS_IMAGE =
+//   "https://res.cloudinary.com/dfwlj6k8j/image/upload/v1772275472/WhatsApp_Image_2026-01-23_at_6.22.55_PM_1_-_Copy_vv7jfv.webp";
+export const REALTY_IMAGE =
+  "https://pub-551ad76f06a94ab19c65c540e6bf9ac7.r2.dev/realtybureau.png";
 
 // --- Utility Components ---
 
@@ -104,11 +114,11 @@ const MobileMenu = ({ isOpen, setIsOpen, navLinks }) => {
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-1100 bg-black text-white flex flex-col p-6 md:p-12"
+          className="fixed inset-0 z-[1100] bg-black text-white flex flex-col p-6 md:p-12 shadow-2xl"
         >
           <div className="flex justify-between items-center mb-12 md:mb-24 gap-4">
             <span className="text-lg md:text-xl font-black tracking-widest uppercase font-condensed shrink-0">
-              ALEN.JACOB
+              ALEN JACOB
             </span>
             <button
               onClick={() => setIsOpen(false)}
@@ -151,10 +161,10 @@ const MobileMenu = ({ isOpen, setIsOpen, navLinks }) => {
               Social Bureau
             </span>
             <div className="flex gap-8">
-              <a href="#" className="text-sm hover:text-emerald-400">
+              <a href="#" className="text-sm hover:text-emerald-400 transition-colors">
                 LinkedIn
               </a>
-              <a href="#" className="text-sm hover:text-emerald-400">
+              <a href="#" className="text-sm hover:text-emerald-400 transition-colors">
                 Instagram
               </a>
             </div>
@@ -189,31 +199,28 @@ export const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 w-full z-[1000] border-b transition-all duration-500 ${
-          scrolled
-            ? "bg-white/80 backdrop-blur-md border-neutral-200 py-4"
+        className={`fixed top-0 left-0 w-full z-[1000] border-b transition-all duration-500 ${scrolled
+            ? "bg-white/85 backdrop-blur-md border-neutral-200 py-4 shadow-sm"
             : "bg-transparent border-transparent py-6"
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
           <Link
             to="/"
-            className={`text-xl md:text-2xl font-black tracking-widest uppercase font-condensed transition-colors duration-500 ${
-              scrolled ? "text-black" : "text-white"
-            }`}
+            className={`text-xl md:text-2xl font-black tracking-widest uppercase font-condensed transition-colors duration-500 ${scrolled ? "text-black" : "text-white"
+              }`}
           >
-            ALEN.JACOB
+            ALEN JACOB
           </Link>
           <div className="hidden md:flex gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.href}
-                className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-colors duration-500 ${
-                  scrolled
+                className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-colors duration-500 ${scrolled
                     ? "text-black/60 hover:text-black"
                     : "text-white/70 hover:text-white"
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>
@@ -221,7 +228,7 @@ export const Navbar = () => {
           </div>
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden group flex flex-col items-end gap-1.5 p-2"
+            className="md:hidden group flex flex-col items-end gap-1.5 p-2 bg-black/10 rounded-lg backdrop-blur-sm border border-white/15"
           >
             <div
               className={`h-0.5 transition-all duration-300 ${scrolled ? "bg-black" : "bg-white"} ${mobileMenuOpen ? "w-0" : "w-8"}`}
@@ -247,43 +254,67 @@ export const Navbar = () => {
 const VENTURES = [
   {
     title: "Trillion Edition",
-    category: "Luxury Assets & Strategy",
+    category: "Super-Prime Luxury Real Estate",
     color: "emerald",
     accent: "#10b981",
     description:
-      "Architecting exclusive business frameworks for elite ventures.",
+      "Developing elite ultra-luxury residential estates, private villas, and high-end lifestyle architecture globally.",
     image: trillionEditionLogo,
+    // bgImage: TRILLION_IMAGE,
     url: "https://www.trillionedition.com/",
+    metrics: [
+      { label: "Prime SFT Developed", value: "1.5M+" },
+      { label: "Elite Assets Portfolio", value: "INR 2,800 Cr+" },
+    ],
+    features: ["Super-Prime Residential", "Private Estate Curation", "Luxury Asset Strategy"],
   },
   {
     title: "Social Bureau",
-    category: "Data-Driven Marketing",
+    category: "PropTech & Listing Ecosystems",
     color: "indigo",
     accent: "#6366f1",
     description:
-      "Kerala's first API-based advertising and social strategy agency.",
+      "Transforming property discovery through Kerala's first API-driven smart land-banking and acreage analytics platform.",
     image: socialBureauLogo,
+    // bgImage: SOCIAL_IMAGE,
     url: "https://www.socialbureau.in/",
+    metrics: [
+      { label: "Property Inquiries", value: "1.2M+" },
+      { label: "Land Parcels Cataloged", value: "4,500+ Acres" },
+    ],
+    features: ["Programmatic Listings", "Land Analytics Engine", "Luxury Showcasing"],
   },
   {
     title: "Business Bureau",
-    category: "Corporate Systems",
+    category: "Commercial Acquisitions",
     color: "blue",
     accent: "#3b82f6",
     description:
-      "Bridging architectural visions with corporate strategy and systems.",
+      "Structuring massive institutional real estate acquisitions, high-yield business parks, and corporate spatial holdings.",
     image: businessBureauLogo,
+    // bgImage: BUSINESS_IMAGE,
     url: "https://www.businessbureau.in/",
+    metrics: [
+      { label: "Corporate Assets", value: "INR 1,200 Cr+" },
+      { label: "Yield Appreciation", value: "18.5% YoY" },
+    ],
+    features: ["Industrial Parks", "Commercial Acquisition", "Asset Revitalization"],
   },
   {
     title: "Realty Bureau",
-    category: "Real Estate & Architecture",
+    category: "Land Banking & Urban Planning",
     color: "neutral",
     accent: "#000000",
     description:
-      "Directing architectural excellence and managed realty assets.",
+      "Acquiring prime acreage, directing legendary high-fidelity architectural masterplans, and managing premium land assets.",
     image: realtyBureauLogo,
+    // bgImage: REALTY_IMAGE,
     url: "https://www.realtybureau.in/",
+    metrics: [
+      { label: "Managed Acreage", value: "1,200+ Acres" },
+      { label: "Architectural Landmark Portfolio", value: "14 Awards" },
+    ],
+    features: ["Strategic Land Banking", "Master Design Advisory", "Acreage Consolidation"],
   },
 ];
 
@@ -291,7 +322,7 @@ const RECOGNITION = [
   {
     company: "Forbes Insight",
     year: "2023",
-    title: "Visionary Business Systems Architect",
+    title: "Visionary Real Estate & Space Strategist",
   },
   {
     company: "Business World",
@@ -301,12 +332,12 @@ const RECOGNITION = [
   {
     company: "Digital Global",
     year: "2024",
-    title: "Innovation Excellence Award",
+    title: "Luxury Property Development Excellence",
   },
   {
     company: "The Hindu",
     year: "2021",
-    title: "Expanding Strategic Horizons in India",
+    title: "Pioneering Megaprojects and Estates in India",
   },
 ];
 
@@ -318,6 +349,125 @@ export const CornerBracket = ({ className = "" }) => (
     <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b border-r border-black/40" />
   </div>
 );
+
+export const PremiumCard3D = ({ children, className = "", accent, style = {} }) => {
+  const cardRef = useRef(null);
+  const x = useMotionValue(0.5);
+  const y = useMotionValue(0.5);
+  const springConfig = { stiffness: 80, damping: 20, mass: 0.15 };
+  const sX = useSpring(x, springConfig);
+  const sY = useSpring(y, springConfig);
+
+  const rotateX = useTransform(sY, [0, 1], [10, -10]);
+  const rotateY = useTransform(sX, [0, 1], [-10, 10]);
+  const spotX = useTransform(sX, [0, 1], ["0%", "100%"]);
+  const spotY = useTransform(sY, [0, 1], ["0%", "100%"]);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    x.set((e.clientX - left) / width);
+    y.set((e.clientY - top) / height);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0.5);
+    y.set(0.5);
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+        ...style,
+      }}
+      className={`relative will-change-transform ${className}`}
+    >
+      <motion.div
+        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 rounded-[32px]"
+        style={{
+          background: `radial-gradient(400px circle at ${spotX} ${spotY}, ${accent}15, transparent 80%)`,
+        }}
+      />
+      <div className="relative z-10 w-full h-full flex flex-col md:flex-row gap-6 md:gap-8" style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d" }}>
+        {children}
+      </div>
+    </motion.div>
+  );
+};
+
+export const PremiumCustomCursor = () => {
+  const [position, setPosition] = useState({ x: -100, y: -100 });
+  const [hidden, setHidden] = useState(true);
+  const [hoveredType, setHoveredType] = useState(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+      if (hidden) setHidden(false);
+    };
+
+    const handleMouseLeave = () => setHidden(true);
+    const handleMouseEnter = () => setHidden(false);
+
+    const handleHoverStart = (e) => {
+      const target = e.target;
+      if (target.closest("a") || target.closest("button") || target.closest("[role='button']")) {
+        setHoveredType("link");
+      } else if (target.closest("[data-cursor='view']")) {
+        setHoveredType("view");
+      } else {
+        setHoveredType(null);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mouseenter", handleMouseEnter);
+    document.addEventListener("mouseover", handleHoverStart);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseenter", handleMouseEnter);
+      document.removeEventListener("mouseover", handleHoverStart);
+    };
+  }, [hidden]);
+
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
+  if (isTouch || hidden) return null;
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 w-8 h-8 rounded-full border border-neutral-900 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
+      style={{
+        x: position.x - 16,
+        y: position.y - 16,
+      }}
+      animate={{
+        scale: hoveredType === "link" ? 1.6 : hoveredType === "view" ? 2.5 : 1,
+        backgroundColor: hoveredType === "link" ? "rgba(255, 255, 255, 0.95)" : hoveredType === "view" ? "rgba(255, 255, 255, 0.95)" : "transparent",
+        borderColor: hoveredType === "view" ? "transparent" : hoveredType === "link" ? "transparent" : "rgba(255, 255, 255, 0.85)",
+      }}
+      transition={{ type: "spring", stiffness: 350, damping: 25, mass: 0.1 }}
+    >
+      {hoveredType === "view" && (
+        <span className="text-[7px] font-black uppercase tracking-widest text-black flex items-center justify-center h-full w-full">
+          Click
+        </span>
+      )}
+    </motion.div>
+  );
+};
 
 export const ArrowUp = ({ size = 18, className = "" }) => (
   <svg
@@ -396,7 +546,6 @@ export const BackToTop = () => {
                 strokeLinecap="round"
                 style={{
                   pathLength: scrollYProgress,
-                  pathSpacing: 0,
                 }}
               />
             </svg>
@@ -429,7 +578,7 @@ const RecognitionSection = () => {
           </RevealText>
           <h2 className="text-5xl md:text-7xl font-black font-condensed tracking-tighter text-black uppercase leading-[0.9]">
             WORLD <br />
-            <span className="text-purple-300">VIEWS.</span>
+            <span className="text-purple-500">VIEWS.</span>
           </h2>
         </div>
 
@@ -460,8 +609,6 @@ const RecognitionSection = () => {
   );
 };
 
-// --- Utility Components ---
-
 const Hero = () => {
   return (
     <section
@@ -473,6 +620,7 @@ const Hero = () => {
           src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=1920"
           alt="Architectural portrait"
           className="absolute inset-0 w-full h-full object-cover brightness-[0.9] contrast-[1.05]"
+          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-transparent to-indigo-500/20"></div>
 
@@ -480,30 +628,41 @@ const Hero = () => {
           <div className="w-[85vh] h-[85vh] border border-white/40 rounded-full"></div>
         </div>
 
-        <div className="relative z-10 text-center px-6 max-w-7xl mx-auto">
-          <p className="text-white/80 text-[10px] font-bold uppercase tracking-[0.4em] md:tracking-[0.8em] mb-8 md:mb-12 animate-pulse">
-            Defining Contemporary Bureaucracy
-          </p>
-          <motion.h1
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-white flex flex-col items-center mix-blend-difference"
-          >
-            <span className="text-7xl sm:text-8xl md:text-[14vw] font-black tracking-tighter leading-none mb-[-0.2em] relative z-20">
-              ALEN
-            </span>
-            <span className="text-7xl sm:text-8xl md:text-[16vw] italic font-serif leading-none relative z-10 block pr-[0.1em]">
-              JACOB.
-            </span>
-          </motion.h1>
-
-          <div className="mt-16 md:mt-24 max-w-md mx-auto relative group">
-            <p className="text-white/60 text-center text-xs md:text-sm font-medium leading-relaxed tracking-[0.05em] md:tracking-widest px-4">
-              Alen Jacob specializes in bridging the gap between social
-              structures, business systems, and tangible reality.
+        <div className="relative z-10 w-full h-[85vh] flex flex-col justify-between max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-6 text-left">
+          {/* Top Row: Subtitle and ALEN */}
+          <div className="flex flex-col items-start text-left max-w-xl">
+            <p className="text-white/80 text-[10px] font-bold uppercase tracking-[0.4em] mb-6 animate-pulse">
+              Pioneering Elite Land & Real Estate Portfolios
             </p>
-            <div className="w-px h-16 md:h-24 bg-gradient-to-b from-white/40 to-transparent mx-auto mt-12"></div>
+            <motion.h1
+              initial={{ x: -40, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-white text-7xl sm:text-8xl md:text-[12vw] font-black tracking-tighter leading-none mix-blend-difference"
+            >
+              ALEN
+            </motion.h1>
+          </div>
+
+          {/* Bottom Row: Description and JACOB. */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 w-full mt-auto">
+            {/* Description (Left Side) */}
+            <div className="max-w-sm text-left pb-4">
+              <p className="text-white/70 text-xs md:text-sm font-medium leading-relaxed tracking-wider">
+                Alen Jacob is a preeminent real estate business leader, specializing in premium land acquisitions, ultra-luxury residential developments, and strategic institutional property holdings.
+              </p>
+              <div className="w-16 h-[2px] bg-gradient-to-r from-emerald-400 to-transparent mt-6"></div>
+            </div>
+
+            {/* JACOB. (Right Side) */}
+            <motion.h1
+              initial={{ x: 40, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              className="text-white text-7xl sm:text-8xl md:text-[14vw] italic font-serif leading-none text-right mix-blend-difference pr-[0.1em] mb-[-0.15em]"
+            >
+              JACOB.
+            </motion.h1>
           </div>
         </div>
       </div>
@@ -553,7 +712,7 @@ const ScrollRow = ({
             <span
               className={`
               text-[9vw] md:text-[11vw] font-black font-condensed uppercase tracking-tighter leading-none transition-colors duration-500
-              ${isOutlined ? "text-outline opacity-40 hover:opacity-100" : "opacity-100 hover:text-neutral-400"}
+              ${isOutlined ? "text-outline opacity-40 hover:opacity-100" : "opacity-100 hover:text-neutral-400 text-neutral-900"}
               ${textColor}
             `}
             >
@@ -571,6 +730,7 @@ const ScrollRow = ({
                 alt=""
                 className="w-full h-full object-cover transition-all duration-700"
                 loading="lazy"
+                referrerPolicy="no-referrer"
               />
             </div>
           </React.Fragment>
@@ -599,22 +759,10 @@ const ScrollingSection = () => {
   }, []);
 
   const bureaus = [
-    {
-      text: "Trillion Edition",
-      img: TRILLION_IMAGE,
-    },
-    {
-      text: "Social Bureau",
-      img: SOCIAL_IMAGE,
-    },
-    {
-      text: "Business Bureau",
-      img: BUSINESS_IMAGE,
-    },
-    {
-      text: "Realty Bureau",
-      img: REALTY_IMAGE,
-    },
+    { text: "Trillion Edition", img: TRILLION_IMAGE },
+    { text: "Social Bureau", img: SOCIAL_IMAGE },
+    { text: "Business Bureau", img: BUSINESS_IMAGE },
+    { text: "Realty Bureau", img: REALTY_IMAGE },
   ];
 
   return (
@@ -663,19 +811,19 @@ const ScrollingSection = () => {
 const GlobalImpactSection = () => {
   const stats = [
     {
-      label: "Assets Under Strategy",
-      value: "$2.4B+",
-      detail: "Across 12 global markets",
+      label: "Real Estate Valuations",
+      value: "INR 4,500 Cr+",
+      detail: "Strategic holdings and super-prime developments",
     },
     {
-      label: "Ventures Architected",
-      value: "18",
-      detail: "From seed to enterprise scale",
+      label: "Prime Land Banking",
+      value: "1,200+ Acres",
+      detail: "Strategic tracts in key economic corridors",
     },
     {
-      label: "Direct Impact",
-      value: "5.2M+",
-      detail: "Users engaged through bureau systems",
+      label: "Super-Prime Built Area",
+      value: "3.2M+ SFT",
+      detail: "Mastercrafted commercial and residential developments",
     },
   ];
 
@@ -691,7 +839,7 @@ const GlobalImpactSection = () => {
           </RevealText>
           <h2 className="text-5xl md:text-7xl font-black font-condensed tracking-tighter text-black uppercase leading-[0.9]">
             STRATEGIC <br />
-            <span className="text-neutral-300">IMPACT.</span>
+            <span className="text-neutral-500">IMPACT.</span>
           </h2>
         </div>
 
@@ -716,57 +864,217 @@ const GlobalImpactSection = () => {
   );
 };
 
+const VentureCard = ({ v, i }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative h-full"
+    >
+      <PremiumCard3D
+        accent={v.accent}
+        className="group bg-white border rounded-[32px] p-6 md:p-8 hover:shadow-[0_40px_120px_-20px_rgba(0,0,0,0.08)] transition-all duration-700 overflow-hidden h-full flex flex-col md:flex-row gap-6 md:gap-8 cursor-pointer"
+        style={{
+          borderColor: isHovered ? `${v.accent}60` : "#e5e7eb",
+          boxShadow: isHovered
+            ? `0 30px 100px -20px rgba(0,0,0,0.05), 0 20px 50px -15px ${v.accent}1b`
+            : "none",
+        }}
+      >
+        <motion.div
+          animate={{
+            x: isHovered ? -3 : 0,
+            y: isHovered ? -3 : 0,
+            scale: isHovered ? 1.12 : 1,
+            opacity: isHovered ? 1 : 0.3,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="absolute top-4 left-4 w-6 h-6 pointer-events-none"
+        >
+          <CornerBracket className="w-full h-full" />
+        </motion.div>
+
+        <motion.div
+          animate={{
+            x: isHovered ? 3 : 0,
+            y: isHovered ? 3 : 0,
+            scale: isHovered ? 1.12 : 1,
+            opacity: isHovered ? 1 : 0.3,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="absolute bottom-4 right-4 w-6 h-6 pointer-events-none rotate-180"
+        >
+          <CornerBracket className="w-full h-full" />
+        </motion.div>
+
+        <div
+          className="flex-grow flex flex-col justify-between text-left md:w-3/5 relative z-10 transition-transform duration-700"
+          style={{
+            transform: isHovered ? "translateZ(15px) translateX(4px)" : "translateZ(15px)",
+          }}
+        >
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <motion.span
+                animate={{
+                  scale: isHovered ? [1, 1.4, 1] : 1,
+                  boxShadow: isHovered ? `0 0 12px ${v.accent}` : "none",
+                }}
+                transition={{ duration: 1.2, repeat: isHovered ? Infinity : 0, repeatType: "reverse" }}
+                className="w-2.5 h-2.5 rounded-full"
+                style={{ backgroundColor: v.accent }}
+              />
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-400 transition-colors group-hover:text-black">
+                {v.category}
+              </span>
+            </div>
+
+            <h3 className="text-3xl md:text-4xl font-extrabold font-condensed uppercase tracking-tight text-neutral-900 group-hover:text-black transition-colors mb-4">
+              {v.title}
+            </h3>
+
+            <p className="text-neutral-500 text-xs md:text-sm leading-relaxed mb-6">
+              {v.description}
+            </p>
+
+            <div className="flex flex-wrap gap-1.5 mb-6">
+              {v.features?.map((feat, fIdx) => (
+                <motion.span
+                  key={fIdx}
+                  animate={{
+                    y: isHovered ? -3 : 0,
+                    borderColor: isHovered ? `${v.accent}30` : "rgba(229,231,235,0.4)",
+                    backgroundColor: isHovered ? `${v.accent}0a` : "rgba(249,250,251,1)",
+                    color: isHovered ? "#111827" : "#6b7280",
+                  }}
+                  transition={{ delay: fIdx * 0.05, type: "spring", stiffness: 260, damping: 15 }}
+                  className="text-[9px] font-bold uppercase tracking-wider px-2 py-1 text-neutral-500 rounded-md border"
+                >
+                  {feat}
+                </motion.span>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-dashed border-neutral-100 mb-6 font-sans">
+              {v.metrics?.map((m, mIdx) => (
+                <div key={mIdx} className="text-left">
+                  <div className="text-[9px] font-bold uppercase tracking-widest text-neutral-400 mb-1">
+                    {m.label}
+                  </div>
+                  <motion.div
+                    animate={{
+                      scale: isHovered ? 1.05 : 1,
+                      x: isHovered ? 2 : 0,
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-base md:text-lg font-extrabold font-condensed tracking-tight"
+                    style={{ color: v.accent }}
+                  >
+                    {m.value}
+                  </motion.div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-2">
+            <a
+              href={v.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.25em] py-3.5 px-6 rounded-full border bg-neutral-900 text-white relative overflow-hidden transition-all hover:bg-black hover:scale-[1.03] shadow-sm active:scale-95 group/btn"
+              style={{ borderColor: "transparent" }}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Explore Entity
+                <motion.span
+                  animate={{
+                    x: isHovered ? 3 : 0,
+                    y: isHovered ? -3 : 0,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 12 }}
+                >
+                  <ArrowUpRight size={14} className="stroke-[3]" />
+                </motion.span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div
+          className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:min-h-[280px] rounded-2xl overflow-hidden relative group-hover:shadow-md transition-shadow duration-500 bg-neutral-950 shrink-0 select-none cursor-pointer"
+          style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}
+          data-cursor="view"
+        >
+          {v.bgImage && (
+            <img
+              src={v.bgImage}
+              alt={v.title}
+              className="w-full h-full object-cover opacity-65 group-hover:opacity-40 transition-all duration-1000 scale-100 group-hover:scale-110"
+              referrerPolicy="no-referrer"
+            />
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-700 group-hover:opacity-85" />
+
+          <div className="absolute inset-0 flex items-center justify-center p-6 z-10" style={{ transform: "translateZ(20px)" }}>
+            <motion.div
+              animate={{
+                scale: isHovered ? 1.08 : 1,
+                rotate: isHovered ? -4 : 0,
+              }}
+              transition={{ type: "spring", stiffness: 280, damping: 18 }}
+              className="w-32 h-32 md:w-34 md:h-34 bg-transparent rounded-2xl flex items-center justify-center p-4 relative overflow-hidden"
+            >
+              <img
+                src={v.image}
+                alt={`${v.title} Logo`}
+                className="w-full h-full object-contain pointer-events-none"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </div>
+
+          <div className="absolute bottom-4 left-4 z-10 text-[9px] font-bold font-mono tracking-widest text-white/50 bg-black/40 backdrop-blur-sm py-1 px-2.5 rounded-full uppercase">
+            SYS // 0{i + 1}
+          </div>
+        </div>
+      </PremiumCard3D>
+    </div>
+  );
+};
+
 const VenturesSection = () => {
   return (
     <section
       id="ventures"
-      className="py-10 md:py-20 px-[5%] bg-white border-b border-neutral-100"
+      className="py-16 md:py-28 px-[5%] bg-neutral-50 relative overflow-hidden text-left"
     >
-      <div className="max-w-7xl mx-auto">
-        <RevealText className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 mb-8 block">
-          01 Portfolio
-        </RevealText>
-        <h2 className="text-5xl md:text-8xl font-black font-condensed tracking-tighter text-black uppercase leading-[0.85] mb-16 md:mb-32">
-          THE <br />
-          <span className="text-neutral-300">VENTURES.</span>
-        </h2>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35 pointer-events-none" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-neutral-100 border border-neutral-100">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-6">
+          <div>
+            <RevealText className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 mb-6 block">
+              01 Portfolio
+            </RevealText>
+            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black font-condensed tracking-tighter text-black uppercase leading-[0.85]">
+              THE <br />
+              <span className="text-neutral-500">VENTURES.</span>
+            </h2>
+          </div>
+          <div className="max-w-md text-left">
+            <p className="text-neutral-500 font-medium text-sm md:text-base leading-relaxed">
+              Meticulously designed luxury property development, smart listing portal technology, institutional commercial holdings, and regional land banking units. Each venture is built for prime real estate superiority.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {VENTURES.map((v, i) => (
-            <div
-              key={i}
-              className={`group relative bg-white p-8 md:p-12 overflow-hidden transition-all duration-700 hover:bg-${v.color}-50`}
-            >
-              <div className="relative z-10">
-                <span
-                  className={`text-[10px] font-bold uppercase tracking-widest text-${v.color}-600 mb-4 block`}
-                >
-                  {v.category}
-                </span>
-                <h3 className="text-3xl md:text-5xl font-black font-condensed uppercase mb-6 transition-colors group-hover:text-black">
-                  {v.title}
-                </h3>
-                <p className="text-neutral-500 max-w-sm leading-relaxed mb-8">
-                  {v.description}
-                </p>
-                <a
-                  href={v.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-[10px] font-bold uppercase tracking-widest border-b-2 transition-all`}
-                  style={{ borderColor: v.accent, color: v.accent }}
-                >
-                  Explore Entity
-                </a>
-              </div>
-              <div className="absolute right-0 bottom-0 w-1/2 h-1/2 md:w-2/3 md:h-2/3 translate-x-1/4 translate-y-1/4 opacity-0 group-hover:opacity-100 transition-all duration-1000 group-hover:translate-x-0 group-hover:translate-y-0 flex items-center justify-center bg-black p-12 md:p-20 rounded-3xl shadow-2xl">
-                <img
-                  src={v.image}
-                  alt={v.title}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </div>
+            <VentureCard key={i} v={v} i={i} />
           ))}
         </div>
       </div>
@@ -775,50 +1083,89 @@ const VenturesSection = () => {
 };
 
 const PhilosophySection = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 70,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const glowOpacity = useTransform(smoothProgress, [0, 0.5, 1], [0.2, 0.65, 0.3]);
+  const glowScale = useTransform(smoothProgress, [0, 0.5, 1], [0.8, 1.3, 0.9]);
+  const bgScale = useTransform(smoothProgress, [0, 0.5, 1], [0.96, 1, 0.96]);
+
+  const words = [
+    "\"Land", "is", "not", "merely", "an", "asset", "class", "it", "is", "the", "physical", "canvas", "of", "civilization.", "We",
+    "curate,", "develop,", "and", "strategic", "bank", "assets",
+    "to", "stand", "as", "landmark", "legacies", "for", "generations.\""
+  ];
+
+  const scrollStart = 0.15;
+  const scrollEnd = 0.65;
+  const range = scrollEnd - scrollStart;
+
   return (
     <section
+      ref={containerRef}
       id="philosophy"
-      className="py-12 md:py-20 px-[5%] bg-emerald-950 text-white relative flex flex-col items-center text-center overflow-hidden"
+      className="py-16 md:py-32 px-[5%] bg-emerald-950 text-white relative flex flex-col items-center justify-center text-center overflow-hidden min-h-[70vh]"
     >
-      <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_50%,#10b981_0%,transparent_70%)]"></div>
+      <motion.div
+        style={{
+          opacity: glowOpacity,
+          scale: glowScale,
+        }}
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,#10b981_0%,transparent_75%)]"
+      />
 
-      <div className="max-w-4xl relative z-10 py-12 md:py-24">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(16,185,129,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(16,185,129,0.03)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none" />
+
+      <motion.div
+        style={{ scale: bgScale }}
+        className="max-w-5xl relative z-10 w-full"
+      >
         <RevealText className="text-[10px] font-bold uppercase tracking-[0.6em] text-emerald-400 mb-12 block">
           Executive Philosophy
         </RevealText>
-        <h2 className="text-3xl md:text-6xl font-serif italic leading-[1.3] mb-16">
-          "Systems are not merely structures of business; they are the
-          <span className="text-emerald-400">
-            {" "}
-            architecture of human progress.{" "}
-          </span>
-          We build for the legacy, not just the quarter."
+        <h2 className="text-3xl sm:text-4xl md:text-[3.5rem] font-serif italic leading-[1.4] mb-4 font-medium flex flex-wrap justify-center">
+          {words.map((word, idx) => {
+            const wordStart = scrollStart + (idx / words.length) * range;
+            const wordEnd = Math.min(scrollEnd, wordStart + 0.1);
+            
+            const opacity = useTransform(smoothProgress, [wordStart, wordEnd], [0.12, 1]);
+            
+            const isHighlight = ["curate,", "develop,", "strategic", "bank", "assets"].includes(word);
+            const color = useTransform(
+              smoothProgress,
+              [wordStart, wordEnd],
+              ["rgba(255, 255, 255, 0.12)", isHighlight ? "#34d399" : "#ffffff"]
+            );
+
+            return (
+              <motion.span
+                key={idx}
+                style={{ opacity, color }}
+                className="inline-block mr-[0.28em] transition-transform duration-300 hover:scale-[1.08] cursor-default font-serif"
+              >
+                {word}
+              </motion.span>
+            );
+          })}
         </h2>
-        <div className="w-px h-24 bg-gradient-to-b from-emerald-500/40 to-transparent mx-auto"></div>
-      </div>
+      </motion.div>
     </section>
   );
 };
 
-const AlenJacob = () => {
+export const AlenJacob = () => {
   return (
     <div className="min-h-screen bg-neutral-100 selection:bg-black selection:text-white">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Inter:wght@400;700;900&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
-        
-        .font-condensed {
-            font-family: 'Antonio', sans-serif;
-            letter-spacing: -0.02em;
-        }
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-        .text-outline {
-            -webkit-text-stroke: 1.5px currentColor;
-            -webkit-text-fill-color: transparent;
-        }
-      `}</style>
-
+      <PremiumCustomCursor />
       <Navbar />
 
       <main>
@@ -830,9 +1177,9 @@ const AlenJacob = () => {
         <RecognitionSection />
         <BackToTop />
 
-        <section id="inquiry" className="bg-white py-12 md:py-24 px-6 md:px-12">
+        <section id="inquiry" className="bg-white py-12 md:py-24 px-6 md:px-12 border-t border-neutral-150">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-end">
-            <div>
+            <div className="text-left">
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-neutral-400 mb-6 md:mb-8 block">
                 Inquiry
               </span>
@@ -841,15 +1188,13 @@ const AlenJacob = () => {
                 <span className="text-emerald-500 opacity-60">Intangible.</span>
               </h2>
             </div>
-            <div className="flex flex-col gap-6 md:gap-8">
+            <div className="flex flex-col gap-6 md:gap-8 text-left">
               <p className="text-base md:text-lg text-neutral-600 font-medium leading-relaxed">
-                I create systems that allow social concepts to thrive within
-                business frameworks, ultimately manifesting in physical reality.
-                Each bureau represents a pillar of modern existence.
+                I structure premium real estate partnerships and high-leverage land banking strategies that transform geographical tracts into world-class landmarks. Each project operates with absolute aesthetic and legal authority.
               </p>
-              <button className="self-start text-[10px] font-bold uppercase tracking-[0.2em] border-b-2 border-black pb-2 hover:text-neutral-400 hover:border-neutral-400 transition-all">
-                View Manifesto
-              </button>
+              <Link to="/contact" className="self-start text-[10px] font-bold uppercase tracking-[0.2em] border-b-2 border-black pb-2 hover:text-neutral-450 hover:border-neutral-450 transition-all text-black decoration-none">
+                Send Inquiry
+              </Link>
             </div>
           </div>
         </section>
@@ -865,21 +1210,24 @@ export const Footer = () => {
     <footer className="bg-black text-white py-10 md:py-16 px-6 md:px-12">
       <div className="max-w-7xl mx-auto flex flex-col gap-12 md:gap-20">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12">
-          <div className="text-3xl md:text-6xl font-black tracking-widest uppercase font-condensed">
+          <div className="text-3xl md:text-6xl font-black tracking-widest uppercase font-condensed text-left">
             ALEN.JACOB
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16 text-left">
             <div className="flex flex-col gap-4">
               <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                 Navigation
               </span>
-              <Link to="/about" className="text-sm hover:text-white/60">
+              <Link to="/" className="text-sm text-white/70 hover:text-white transition-colors">
+                Home
+              </Link>
+              <Link to="/about" className="text-sm text-white/70 hover:text-white transition-colors">
                 About
               </Link>
-              <Link to="/services" className="text-sm hover:text-white/60">
+              <Link to="/services" className="text-sm text-white/70 hover:text-white transition-colors">
                 Services
               </Link>
-              <Link to="/contact" className="text-sm hover:text-white/60">
+              <Link to="/contact" className="text-sm text-white/70 hover:text-white transition-colors">
                 Contact
               </Link>
             </div>
@@ -887,104 +1235,99 @@ export const Footer = () => {
               <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                 Connect
               </span>
-              <a href="#" className="text-sm hover:text-white/60">
+              <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">
                 Instagram
               </a>
-              <a href="#" className="text-sm hover:text-white/60">
+              <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">
                 LinkedIn
               </a>
-              <a href="#" className="text-sm hover:text-white/60">
+              <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">
                 X.com
               </a>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 lg:col-span-2">
               <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                 Network
               </span>
-              <a
-                href="https://www.trillionedition.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 group/link"
-              >
-                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
-                  <img
-                    src={trillionEditionLogo}
-                    alt="Trillion Edition"
-                    className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
-                  />
-                </div>
-                <span className="text-sm text-white/60 group-hover/link:text-white">
-                  Trillion Edition
-                </span>
-              </a>
-              <a
-                href="https://www.socialbureau.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 group/link"
-              >
-                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
-                  <img
-                    src={socialBureauLogo}
-                    alt="Social Bureau"
-                    className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
-                  />
-                </div>
-                <span className="text-sm text-white/60 group-hover/link:text-white">
-                  Social Bureau
-                </span>
-              </a>
-              <a
-                href="https://www.businessbureau.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 group/link"
-              >
-                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
-                  <img
-                    src={businessBureauLogo}
-                    alt="Business Bureau"
-                    className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
-                  />
-                </div>
-                <span className="text-sm text-white/60 group-hover/link:text-white">
-                  Business Bureau
-                </span>
-              </a>
-              <a
-                href="https://www.realtybureau.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 group/link"
-              >
-                <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
-                  <img
-                    src={realtyBureauLogo}
-                    alt="Realty Bureau"
-                    className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
-                  />
-                </div>
-                <span className="text-sm text-white/60 group-hover/link:text-white">
-                  Realty Bureau
-                </span>
-              </a>
-            </div>
-            <div className="flex flex-col gap-4">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
-                Legal
-              </span>
-              <a href="#" className="text-sm hover:text-white/60">
-                Privacy
-              </a>
-              <a href="#" className="text-sm hover:text-white/60">
-                Terms
-              </a>
+              <div className="grid grid-cols-1 gap-2">
+                <a
+                  href="https://www.trillionedition.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group/link"
+                >
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
+                    <img
+                      src={trillionEditionLogo}
+                      alt="Trillion Edition"
+                      className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <span className="text-sm text-white/60 group-hover/link:text-white transition-colors">
+                    Trillion Edition
+                  </span>
+                </a>
+                <a
+                  href="https://www.socialbureau.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group/link"
+                >
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
+                    <img
+                      src={socialBureauLogo}
+                      alt="Social Bureau"
+                      className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <span className="text-sm text-white/60 group-hover/link:text-white transition-colors">
+                    Social Bureau
+                  </span>
+                </a>
+                <a
+                  href="https://www.businessbureau.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group/link"
+                >
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
+                    <img
+                      src={businessBureauLogo}
+                      alt="Business Bureau"
+                      className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <span className="text-sm text-white/60 group-hover/link:text-white transition-colors">
+                    Business Bureau
+                  </span>
+                </a>
+                <a
+                  href="https://www.realtybureau.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 group/link"
+                >
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center transition-colors group-hover/link:bg-white/10">
+                    <img
+                      src={realtyBureauLogo}
+                      alt="Realty Bureau"
+                      className="w-5 h-5 object-contain opacity-70 group-hover/link:opacity-100 transition-opacity"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <span className="text-sm text-white/60 group-hover/link:text-white transition-colors">
+                    Realty Bureau
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
         <div className="border-t border-white/10 pt-8 md:pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/20">
-          <span>© 2024 Alen Jacob. All rights reserved.</span>
+          <span>© 2026 Alen Jacob. All rights reserved.</span>
           <span>Designed for the Future.</span>
         </div>
       </div>

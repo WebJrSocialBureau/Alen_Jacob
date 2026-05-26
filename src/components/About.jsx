@@ -219,7 +219,7 @@ const About = () => {
           <div className="max-w-7xl mx-auto">
             <SectionHeading subtitle="The Journey">
               MILESTONES OF <br />{" "}
-              <span className="text-neutral-300">PROGRESS.</span>
+              <span className="text-neutral-500">PROGRESS.</span>
             </SectionHeading>
 
             <div className="relative border-l-2 border-neutral-200 ml-4 md:ml-12 space-y-24 py-8">

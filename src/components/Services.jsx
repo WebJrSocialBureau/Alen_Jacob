@@ -15,8 +15,7 @@ import socialBureauLogo from "../assets/Socialbureau_logo.png";
 import businessBureauLogo from "../assets/Businessbureau_logo.png";
 const trillionEditionLogo =
   "https://media.licdn.com/dms/image/v2/D4D0BAQGxkR7s2uQQyQ/company-logo_200_200/B4DZdUzxzFGYAM-/0/1749474549560/trillionedition_logo?e=2147483647&v=beta&t=nXoCXkbTq8UFjUNmpm4-LRjbZmhKfYVsyrg98a2LQH8";
-const realtyBureauLogo =
-  "https://res.cloudinary.com/dtwcgfmar/image/upload/v1770275984/RB_Logo_eqqi7q.png";
+export const realtyBureauLogo = "https://pub-551ad76f06a94ab19c65c540e6bf9ac7.r2.dev/realtybureau.png";
 
 // --- Bureau Imagery ---
 const TRILLION_IMAGE =
@@ -409,7 +408,7 @@ const Services = () => {
               Core Ecosystem
             </RevealText>
             <h2 className="text-5xl md:text-8xl font-black font-condensed tracking-tighter text-black uppercase leading-[0.85] mb-16">
-              THE <br /> <span className="text-neutral-200">PILLARS.</span>
+              THE <br /> <span className="text-neutral-500">PILLARS.</span>
             </h2>
           </div>
 
