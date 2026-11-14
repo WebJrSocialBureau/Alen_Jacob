@@ -12,7 +12,7 @@ import { ArrowUpRight } from "lucide-react";
 import TRILLION_IMAGE from "../assets/trillionedition.webp";
 import SOCIAL_IMAGE from "../assets/Socialbureau_logo.png";
 import BUSINESS_IMAGE from "../assets/Businessbureau_logo.png";
-
+import alen from "../assets/Alen_Jacob.webp";
 // import REALTY_IMAGE from "../assets/realty_image.webp";
 
 // --- Bureau Logos (Inlined for high-fidelity vector rendering and zero physical file dependencies) ---
@@ -251,93 +251,116 @@ export const Navbar = () => {
   );
 };
 
+
 const VENTURES = [
   {
     title: "Trillion Edition",
-    category: "Super-Prime Luxury Real Estate",
+    category: "Global Luxury Strategy & Asset Management",
     color: "emerald",
     accent: "#10b981",
     description:
-      "Developing elite ultra-luxury residential estates, private villas, and high-end lifestyle architecture globally.",
+      "A global business and asset strategy group focused on premium brand positioning, strategic investments, luxury real estate, and building high-value business ecosystems across international markets.",
     image: trillionEditionLogo,
-    // bgImage: TRILLION_IMAGE,
     url: "https://www.trillionedition.com/",
     metrics: [
-      { label: "Prime SFT Developed", value: "1.5M+" },
-      { label: "Elite Assets Portfolio", value: "INR 2,800 Cr+" },
+      { label: "Global Jurisdictions", value: "12+" },
+      { label: "Managed Portfolio", value: "$4B+" },
     ],
-    features: ["Super-Prime Residential", "Private Estate Curation", "Luxury Asset Strategy"],
+    features: [
+      "Strategic Business Advisory",
+      "Global Asset Strategy",
+      "Premium Brand Positioning",
+    ],
   },
   {
     title: "Social Bureau",
-    category: "PropTech & Listing Ecosystems",
+    category: "Digital Marketing & Technology",
     color: "indigo",
     accent: "#6366f1",
     description:
-      "Transforming property discovery through Kerala's first API-driven smart land-banking and acreage analytics platform.",
+      "A data-driven digital marketing and technology brand focused on social media growth, API-driven marketing solutions, digital campaigns, brand visibility, and performance-oriented marketing ecosystems.",
     image: socialBureauLogo,
-    // bgImage: SOCIAL_IMAGE,
     url: "https://www.socialbureau.in/",
     metrics: [
-      { label: "Property Inquiries", value: "1.2M+" },
-      { label: "Land Parcels Cataloged", value: "4,500+ Acres" },
+      { label: "Core Approach", value: "Data-Driven" },
+      { label: "Marketing Focus", value: "API-Powered" },
     ],
-    features: ["Programmatic Listings", "Land Analytics Engine", "Luxury Showcasing"],
+    features: [
+      "Social Media Marketing",
+      "API-Driven Marketing Solutions",
+      "Digital Campaign Management",
+    ],
   },
   {
     title: "Business Bureau",
-    category: "Commercial Acquisitions",
+    category: "Coworking & Managed Workspaces",
     color: "blue",
     accent: "#3b82f6",
     description:
-      "Structuring massive institutional real estate acquisitions, high-yield business parks, and corporate spatial holdings.",
+      "A professionally managed coworking and flexible workspace brand in Kerala, providing modern work environments for freelancers, entrepreneurs, startups, and established teams through shared workspaces, private offices, and meeting facilities.",
     image: businessBureauLogo,
-    // bgImage: BUSINESS_IMAGE,
     url: "https://www.businessbureau.in/",
     metrics: [
-      { label: "Corporate Assets", value: "INR 1,200 Cr+" },
-      { label: "Yield Appreciation", value: "18.5% YoY" },
+      { label: "Workspace Locations", value: "2" },
+      { label: "Primary Market", value: "Kochi, Kerala" },
     ],
-    features: ["Industrial Parks", "Commercial Acquisition", "Asset Revitalization"],
+    features: [
+      "Coworking & Shared Offices",
+      "Private Office Cabins",
+      "Meeting Rooms & Day Passes",
+    ],
   },
   {
     title: "Realty Bureau",
-    category: "Land Banking & Urban Planning",
+    category: "Luxury Real Estate & Asset Development",
     color: "neutral",
     accent: "#000000",
     description:
-      "Acquiring prime acreage, directing legendary high-fidelity architectural masterplans, and managing premium land assets.",
+      "A specialized real estate division focused on identifying, acquiring, and developing premium and trophy real estate assets across sought-after global markets, with an emphasis on strategic property opportunities and long-term asset value.",
     image: realtyBureauLogo,
-    // bgImage: REALTY_IMAGE,
     url: "https://www.realtybureau.in/",
     metrics: [
-      { label: "Managed Acreage", value: "1,200+ Acres" },
-      { label: "Architectural Landmark Portfolio", value: "14 Awards" },
+      { label: "Primary Focus", value: "Trophy Assets" },
+      { label: "Market Orientation", value: "Global" },
     ],
-    features: ["Strategic Land Banking", "Master Design Advisory", "Acreage Consolidation"],
+    features: [
+      "Premium Property Acquisition",
+      "Trophy Asset Development",
+      "Strategic Real Estate Advisory",
+    ],
   },
 ];
 
+
+
 const RECOGNITION = [
   {
-    company: "Forbes Insight",
-    year: "2023",
-    title: "Visionary Real Estate & Space Strategist",
+    company: "Trillion Edition",
+    year: "2025 – Present",
+    title: "Founder & Designated Partner",
+    description:
+      "Leading the group's strategic vision, business development, and multi-vertical venture ecosystem.",
   },
   {
-    company: "Business World",
-    year: "2022",
-    title: "Top 40 Under 40 Business Leaders",
+    company: "Social Bureau",
+    year: "Present",
+    title: "Director",
+    description:
+      "Driving digital innovation, technology development, marketing solutions, and business growth.",
   },
   {
-    company: "Digital Global",
-    year: "2024",
-    title: "Luxury Property Development Excellence",
+    company: "Business Bureau",
+    year: "Present",
+    title: "Director",
+    description:
+      "Overseeing workspace strategy, business operations, and the development of professional work environments.",
   },
   {
-    company: "The Hindu",
-    year: "2021",
-    title: "Pioneering Megaprojects and Estates in India",
+    company: "Realty Bureau",
+    year: "Present",
+    title: "Director",
+    description:
+      "Leading real estate strategy, property development initiatives, and premium asset opportunities.",
   },
 ];
 
@@ -617,7 +640,7 @@ const Hero = () => {
     >
       <div className="relative flex-grow flex items-center justify-center">
         <img
-          src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=1920"
+          src={alen}
           alt="Architectural portrait"
           className="absolute inset-0 w-full h-full object-cover brightness-[0.9] contrast-[1.05]"
           referrerPolicy="no-referrer"
@@ -634,14 +657,6 @@ const Hero = () => {
             <p className="text-white/80 text-[10px] font-bold uppercase tracking-[0.4em] mb-6 animate-pulse">
               Pioneering Elite Land & Real Estate Portfolios
             </p>
-            <motion.h1
-              initial={{ x: -40, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-white text-7xl sm:text-8xl md:text-[12vw] font-black tracking-tighter leading-none mix-blend-difference"
-            >
-              ALEN
-            </motion.h1>
           </div>
 
           {/* Bottom Row: Description and JACOB. */}
@@ -653,16 +668,6 @@ const Hero = () => {
               </p>
               <div className="w-16 h-[2px] bg-gradient-to-r from-emerald-400 to-transparent mt-6"></div>
             </div>
-
-            {/* JACOB. (Right Side) */}
-            <motion.h1
-              initial={{ x: 40, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              className="text-white text-7xl sm:text-8xl md:text-[14vw] italic font-serif leading-none text-right mix-blend-difference pr-[0.1em] mb-[-0.15em]"
-            >
-              JACOB.
-            </motion.h1>
           </div>
         </div>
       </div>
@@ -809,23 +814,25 @@ const ScrollingSection = () => {
 };
 
 const GlobalImpactSection = () => {
-  const stats = [
-    {
-      label: "Real Estate Valuations",
-      value: "INR 4,500 Cr+",
-      detail: "Strategic holdings and super-prime developments",
-    },
-    {
-      label: "Prime Land Banking",
-      value: "1,200+ Acres",
-      detail: "Strategic tracts in key economic corridors",
-    },
-    {
-      label: "Super-Prime Built Area",
-      value: "3.2M+ SFT",
-      detail: "Mastercrafted commercial and residential developments",
-    },
-  ];
+ 
+const stats = [
+  {
+    label: "Business Verticals",
+    value: "Multi-Vertical",
+    detail: "A parent company building and developing specialised business brands",
+  },
+  {
+    label: "Venture Ecosystem",
+    value: "SocialBureau & RevoBureau",
+    detail: "Building independent brands across specialised business sectors",
+  },
+  {
+    label: "Corporate Headquarters",
+    value: "Kerala, India",
+    detail: "Strategic business operations based in Ernakulam",
+  },
+];
+
 
   return (
     <section
@@ -852,7 +859,7 @@ const GlobalImpactSection = () => {
               <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 mb-4 block">
                 {s.label}
               </span>
-              <div className="text-4xl md:text-8xl font-black font-condensed mb-2 text-black">
+              <div className="text-2xl md:text-4xl font-black font-condensed mb-2 text-black">
                 {s.value}
               </div>
               <p className="text-neutral-500 font-medium">{s.detail}</p>

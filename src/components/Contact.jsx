@@ -77,9 +77,35 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+  const [formStatus, setFormStatus] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const subjectLabels = {
+      trillion: "Trillion Edition (Consultancy)",
+      social: "Social Bureau (Marketing)",
+      businessbureau: "Business Bureau (Co-working space)",
+      other: "General Inquiry",
+    };
+    const emailSubject = subjectLabels[formData.subject] || "General Inquiry";
+    const emailBody = [
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      `Area of Interest: ${emailSubject}`,
+      "",
+      "Message:",
+      formData.message,
+    ].join("\n");
+    const mailto = `mailto:director@socialbureau.in?subject=${encodeURIComponent(
+      `Contact inquiry: ${emailSubject}`,
+    )}&body=${encodeURIComponent(emailBody)}`;
+
+    setFormStatus("Opening your email app with the inquiry ready to send.");
+    window.location.href = mailto;
   };
 
   return (
@@ -113,20 +139,20 @@ const Contact = () => {
                 <ContactCard
                   label="Direct Email"
                   title="Inquiry Bureau"
-                  value="inquiry@alenjacob.com"
-                  href="mailto:inquiry@alenjacob.com"
+                  value="director@socialbureau.in"
+                  href="mailto:director@socialbureau.in"
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                   <ContactCard
                     label="Social"
                     title="LinkedIn"
                     value="@alenjacob"
-                    href="#"
+                    href="https://www.linkedin.com/in/alen-jacob-695a99184"
                   />
                   <ContactCard
                     label="Social"
                     title="Instagram"
-                    value="@alenjacob"
+                    value="@alen.jacob"
                     href="#"
                   />
                 </div>
@@ -156,18 +182,19 @@ const Contact = () => {
                   </p>
                 </div>
 
-                <form className="space-y-12">
+                <form className="space-y-12" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="relative group">
                       <label
                         htmlFor="name"
                         className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-4 block group-focus-within:text-black transition-colors"
                       >
-                        The Architect (Your Name)
+                        Name
                       </label>
                       <input
                         type="text"
                         id="name"
+                        required
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Julian Vercetti"
@@ -179,11 +206,12 @@ const Contact = () => {
                         htmlFor="email"
                         className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-4 block group-focus-within:text-black transition-colors"
                       >
-                        Communication Bridge (Email)
+                        Email
                       </label>
                       <input
                         type="email"
                         id="email"
+                        required
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="julian@example.com"
@@ -201,6 +229,7 @@ const Contact = () => {
                     </label>
                     <select
                       id="subject"
+                      required
                       value={formData.subject}
                       onChange={handleChange}
                       className="w-full bg-transparent border-b border-neutral-200 py-4 focus:border-black outline-none transition-colors font-medium text-lg appearance-none cursor-pointer"
@@ -210,7 +239,7 @@ const Contact = () => {
                         Trillion Edition (Consultancy)
                       </option>
                       <option value="social">Social Bureau (Marketing)</option>
-                      <option value="venture">VentureX (Investments)</option>
+                      <option value="businessbureau">Business Bureau (Co-working space)</option>
                       <option value="other">General Inquiry</option>
                     </select>
                   </div>
@@ -225,6 +254,7 @@ const Contact = () => {
                     <textarea
                       id="message"
                       rows="5"
+                      required
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Share the details of your vision or proposal..."
@@ -233,7 +263,10 @@ const Contact = () => {
                   </div>
 
                   <Magnetic strength={0.1}>
-                    <button className="w-full md:w-auto px-12 md:px-20 py-6 md:py-8 bg-black text-white text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-neutral-900 transition-all group flex items-center justify-center gap-6 relative overflow-hidden border border-white/10">
+                    <button
+                      type="submit"
+                      className="w-full md:w-auto px-12 md:px-20 py-6 md:py-8 bg-black text-white text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-neutral-900 transition-all group flex items-center justify-center gap-6 relative overflow-hidden border border-white/10"
+                    >
                       <span className="relative z-10">Send Inquiry</span>
                       <div className="w-8 h-px bg-white/30 group-hover:w-16 group-hover:bg-white transition-all relative z-10"></div>
                       <motion.div
@@ -243,6 +276,9 @@ const Contact = () => {
                       />
                     </button>
                   </Magnetic>
+                  <p className="text-sm text-neutral-500" aria-live="polite">
+                    {formStatus}
+                  </p>
                 </form>
               </div>
             </div>

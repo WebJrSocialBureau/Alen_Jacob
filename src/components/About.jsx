@@ -8,36 +8,38 @@ import {
   CornerBracket,
 } from "./AlenJacob";
 
+
 const JOURNEY = [
   {
-    year: "2012",
-    title: "Foundational Systems",
+    year: "2025",
+    title: "Trillion Edition Established",
     description:
-      "Beginning the journey into architectural business frameworks and corporate systems design.",
+      "Formal establishment of Trillion Edition LLP in Ernakulam, Kerala, with Alen Jacob appointed as Designated Partner, creating a corporate foundation for the group's business vision.",
     color: "from-blue-500 to-cyan-400",
   },
   {
-    year: "2016",
-    title: "Digital Expansion",
+    year: "2025",
+    title: "Building a Multi-Venture Ecosystem",
     description:
-      "Pioneering API-based social strategy and data-driven marketing ecosystems in Kerala.",
+      "Bringing together specialised business ventures spanning digital marketing, technology, commercial workspaces, and real estate under a broader business vision.",
     color: "from-indigo-600 to-purple-500",
   },
   {
-    year: "2020",
-    title: "Strategic Capital",
+    year: "Present",
+    title: "Strategic Business Expansion",
     description:
-      "Launch of VentureX, bridging the gap between disruptive ideas and strategic operational capital.",
+      "Driving the development of independent business verticals, strengthening operational capabilities, and pursuing new opportunities across emerging markets.",
     color: "from-amber-400 to-orange-500",
   },
   {
-    year: "2024",
-    title: "The Trillion Vision",
+    year: "The Vision",
+    title: "Building a Lasting Legacy",
     description:
-      "Consolidating elite ventures under the Trillion Edition framework for global impact.",
+      "Creating a diversified business ecosystem focused on innovation, strategic growth, sustainable enterprise development, and long-term value creation.",
     color: "from-emerald-500 to-teal-400",
   },
 ];
+
 
 const PRINCIPLES = [
   {
@@ -205,7 +207,7 @@ const About = () => {
                   className="absolute -bottom-24 -left-12 hidden lg:block w-64 aspect-square shadow-2xl border-8 border-white rounded-3xl overflow-hidden"
                 >
                   <img
-                    src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=600"
+                    src="/src/assets/alenjacob.webp"
                     alt="Vibrant Gradient"
                     className="w-full h-full object-cover"
                   />

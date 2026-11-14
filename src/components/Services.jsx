@@ -379,28 +379,6 @@ const Services = () => {
           </motion.div>
         </section>
 
-        {/* Home-Matching Marquee */}
-        <div className="bg-white py-12 md:py-20 relative overflow-hidden border-y border-neutral-100">
-          <div className="flex flex-col gap-0 md:gap-4">
-            <ScrollRow
-              items={bureautexts}
-              direction="left"
-              textColor="text-black"
-              isOutlined={false}
-              scrollProgress={scrollPosition}
-              rotation={3}
-            />
-            <ScrollRow
-              items={[...bureautexts].reverse()}
-              direction="right"
-              textColor="text-black"
-              isOutlined={true}
-              scrollProgress={scrollPosition}
-              rotation={-2}
-            />
-          </div>
-        </div>
-
         {/* Bureau Showcase */}
         <section className="relative z-10 bg-white">
           <div className="px-6 md:px-12 max-w-7xl mx-auto pt-20 pb-12">
