@@ -315,7 +315,7 @@ const About = () => {
                   <div className="text-5xl mb-12 text-indigo-600 group-hover:scale-125 transition-transform duration-500">
                     {p.icon}
                   </div>
-                  <h3 className="text-3xl font-black font-condensed uppercase mb-6">
+                  <h3 className="text-3xl font-condensed uppercase mb-6">
                     {p.title}
                   </h3>
                   <p className="text-neutral-600 leading-relaxed font-medium">

@@ -616,7 +616,7 @@ const RecognitionSection = () => {
                   <span className="text-[10px] font-bold uppercase tracking-widest text-purple-500">
                     {r.company} — {r.year}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-black font-condensed uppercase transition-colors group-hover:text-purple-600">
+                  <h3 className="text-2xl md:text-3xl font-condensed uppercase transition-colors group-hover:text-purple-600">
                     {r.title}
                   </h3>
                 </div>
@@ -652,13 +652,7 @@ const Hero = () => {
         </div>
 
         <div className="relative z-10 w-full h-[85vh] flex flex-col justify-between max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-6 text-left">
-          {/* Top Row: Subtitle and ALEN */}
-          <div className="flex flex-col items-start text-left max-w-xl">
-            <p className="text-white/80 text-[10px] font-bold uppercase tracking-[0.4em] mb-6 animate-pulse">
-              Pioneering Elite Land & Real Estate Portfolios
-            </p>
-          </div>
-
+          
           {/* Bottom Row: Description and JACOB. */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 w-full mt-auto">
             {/* Description (Left Side) */}

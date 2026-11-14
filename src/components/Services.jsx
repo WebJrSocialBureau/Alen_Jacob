@@ -207,7 +207,7 @@ const ServiceCard = ({ service, index }) => (
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 mb-4 block group-hover:text-black transition-colors">
             {service.category}
           </span>
-          <h2 className="text-5xl sm:text-6xl md:text-8xl font-black font-condensed uppercase mb-8 leading-tight group-hover:text-indigo-600 transition-colors">
+          <h2 className="text-5xl sm:text-6xl md:text-8xl font-condensed uppercase mb-8 leading-tight group-hover:text-indigo-600 transition-colors">
             {service.title}
           </h2>
           <p className="text-base md:text-xl text-neutral-600 leading-relaxed mb-12 max-w-lg">
@@ -354,7 +354,7 @@ const Services = () => {
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-7xl sm:text-8xl md:text-[12vw] block"
+                className="text-5xl sm:text-8xl md:text-[12vw] block"
               >
                 EXECUTIVE
               </motion.span>
